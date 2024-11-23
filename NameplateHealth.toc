@@ -1,0 +1,22 @@
+## Interface: 110005
+## Title: NameplateHealth
+## Version: 1.0.0
+## Author: RBGDEV
+## Notes: Shows health on nameplates
+## OptionalDeps: Ace3, LibStub, LibSharedMedia-3.0, AceGUI-3.0-SharedMediaWidgets
+## SavedVariables: NameplateHealthDB
+## X-Category: Interface Enhancements
+## X-License: All Rights Reserved
+## X-Website: https://www.curseforge.com/wow/addons/nameplate-health
+## X-Curse-Project-ID: 1146438
+## X-Wago-ID: RNL9qE6o
+## X-WoWI-ID:
+
+#@no-lib-strip@
+embeds.xml
+#@end-no-lib-strip@
+
+config.lua
+options.lua
+helpers.lua
+NameplateHealth.lua
