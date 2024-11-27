@@ -65,13 +65,13 @@ end
 NS.CleanupDB = function(src, dst)
   for key, value in pairs(src) do
     if dst[key] == nil then
-      -- HACK: offsetsXY are not set in DEFAULT_SETTINGS but sat on demand instead to save memory,
+      -- HACK: offsetsXY are not set in DEFAULT_SETTINGS but set on demand instead to save memory,
       -- which causes nil comparison to always be true here, so always ignore these for now
-      if key ~= "offsetsX" and key ~= "offsetsY" and key ~= "version" then
+      if key ~= "version" then
         src[key] = nil
       end
     elseif type(value) == "table" then
-      if key ~= "disabledCategories" and key ~= "categoryTextures" then -- also sat on demand
+      if key ~= "disabledCategories" and key ~= "categoryTextures" then -- also set on demand
         dst[key] = NS.CleanupDB(value, dst[key])
       end
     end

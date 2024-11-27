@@ -186,7 +186,7 @@ local function addNameplateHealth(nameplate, guid)
   local isFriend = UnitIsFriend("player", unit)
   local canAttack = UnitCanAttack("player", unit)
   local isDeadOrGhost = UnitIsDeadOrGhost(unit)
-  local npcID = select(6, strsplit("-", guid))
+  -- local npcID = select(6, strsplit("-", guid))
 
   local hideDead = isDeadOrGhost
   local hideNPCs = not NS.db.global.showNPCs and isNpc
@@ -199,7 +199,7 @@ local function addNameplateHealth(nameplate, guid)
   local hideHealthNumbers = showTestMode
     and (hideNPCs or hideSelf or hideDead or hideAllies or hideEnemies or hideNonPlayers or hideCanAttack)
 
-  if hideHealthNumbers or NS.isNPCInList(NS.NPC_HIDE_LIST, npcID) then
+  if hideHealthNumbers then
     if nameplate.nphHealthText then
       nameplate.nphHealthText:Hide()
     end
@@ -224,7 +224,6 @@ local function addNameplateHealth(nameplate, guid)
 
   if not nameplate.nphHealthText then
     nameplate.nphHealthText = nameplate.rbgdAnchorFrame:CreateFontString(nil, "OVERLAY")
-    nameplate.nphHealthText:SetFont(LSM:Fetch("font", NS.db.global.fontFamily), NS.db.global.fontSize, "OUTLINE")
     nameplate.nphHealthText:SetFont(LSM:Fetch("font", NS.db.global.fontFamily), NS.db.global.fontSize, "OUTLINE")
     nameplate.nphHealthText:SetTextColor(
       NS.db.global.color.r,
@@ -460,11 +459,11 @@ function NS.OnDbChanged()
   NameplateHealthFrame.dbChanged = false
 end
 
-function Options_SlashCommands(_)
+function NS.Options_SlashCommands(_)
   LibStub("AceConfigDialog-3.0"):Open(AddonName)
 end
 
-function Options_Setup()
+function NS.Options_Setup()
   LibStub("AceConfig-3.0"):RegisterOptionsTable(AddonName, NS.AceConfig)
   LibStub("AceConfigDialog-3.0"):AddToBlizOptions(AddonName, AddonName)
 
@@ -472,7 +471,7 @@ function Options_Setup()
   SLASH_NPH2 = "/nph"
 
   function SlashCmdList.NPH(message)
-    Options_SlashCommands(message)
+    NS.Options_SlashCommands(message)
   end
 end
 
@@ -492,7 +491,7 @@ function NameplateHealth:ADDON_LOADED(addon)
     -- Remove table values no longer found in default settings
     NS.CleanupDB(NameplateHealthDB, NS.DefaultDatabase)
 
-    Options_Setup()
+    NS.Options_Setup()
   end
 end
 NameplateHealthFrame:RegisterEvent("ADDON_LOADED")
