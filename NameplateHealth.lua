@@ -23,8 +23,8 @@ local pairs = pairs
 local UnitAffectingCombat = UnitAffectingCombat
 local UnitIsDeadOrGhost = UnitIsDeadOrGhost
 local UnitGUID = UnitGUID
-local select = select
-local strsplit = strsplit
+-- local select = select
+-- local strsplit = strsplit
 local LibStub = LibStub
 local next = next
 
@@ -108,16 +108,18 @@ local function GetSafeNameplateFrame(nameplate)
   return frame
 end
 
-local function GetHealthbarFrame(nameplate)
+local function GetHealthBarFrame(nameplate)
   local frame = GetSafeNameplateFrame(nameplate)
   if frame then
     if frame.HealthBarsContainer then
       return frame.HealthBarsContainer.healthBar
+    elseif frame.healthBar then
+      return frame.healthBar
     else
       return frame
     end
   end
-  return nameplate
+  return nil
 end
 
 local function instanceCheck()
@@ -172,7 +174,7 @@ local function GetUnitHealthText(unit, health, absorb)
   return finalString
 end
 
-local function addNameplateHealth(nameplate, guid)
+local function addNameplateHealth(nameplate, _)
   if not nameplate.namePlateUnitToken then
     return
   end
@@ -206,10 +208,10 @@ local function addNameplateHealth(nameplate, guid)
     return
   end
 
-  local frame = GetSafeNameplateFrame(nameplate)
-  local anchorFrame = frame and frame.healthBar or nameplate
+  local healthBar = GetHealthBarFrame(nameplate)
+  local anchorFrame = healthBar and healthBar or nameplate
   local offsetX = 0
-  if frame and frame.healthBar then
+  if healthBar then
   else
     if NS.db.global.position == "LEFT" then
       offsetX = 12
@@ -301,8 +303,8 @@ end
 
 function NameplateHealth:attachToNameplate(nameplate, guid)
   if not nameplate.rbgdAnchorFrame then
-    local healthBarFrame = GetHealthbarFrame(nameplate)
-    local attachmentFrame = healthBarFrame and healthBarFrame or nameplate
+    local healthBar = GetHealthBarFrame(nameplate)
+    local attachmentFrame = healthBar and healthBar or nameplate
     nameplate.rbgdAnchorFrame = CreateFrame("Frame", nil, attachmentFrame)
   end
 
