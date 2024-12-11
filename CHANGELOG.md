@@ -1,5 +1,9 @@
 # Nameplate Health
 
+## [v1.0.3](https://github.com/rbgdevx/nameplate-health/releases/tag/v1.0.3) (2024-12-10)
+
+- refactoring nameplate anchoring to be consistent and up to date with blizzards apis
+
 ## [v1.0.2](https://github.com/rbgdevx/nameplate-health/releases/tag/v1.0.2) (2024-12-03)
 
 - updating nameplate anchor code

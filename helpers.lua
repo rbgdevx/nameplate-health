@@ -4,7 +4,7 @@ local type = type
 local next = next
 local pairs = pairs
 local ipairs = ipairs
-local wipe = wipe
+local wipe = table.wipe
 local getmetatable = getmetatable
 local setmetatable = setmetatable
 
@@ -71,9 +71,7 @@ NS.CleanupDB = function(src, dst)
         src[key] = nil
       end
     elseif type(value) == "table" then
-      if key ~= "disabledCategories" and key ~= "categoryTextures" then -- also set on demand
-        dst[key] = NS.CleanupDB(value, dst[key])
-      end
+      dst[key] = NS.CleanupDB(value, dst[key])
     end
   end
   return dst

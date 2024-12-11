@@ -29,7 +29,7 @@ local LibStub = LibStub
 local next = next
 
 local sformat = string.format
-local smatch = string.match
+-- local smatch = string.match
 
 local GetNamePlateForUnit = C_NamePlate.GetNamePlateForUnit
 local GetNamePlates = C_NamePlate.GetNamePlates
@@ -82,44 +82,13 @@ local simpleFormatters = {
   end,
 }
 
-local function GetSafeNameplateFrame(nameplate)
-  if not nameplate then
-    return nil
-  end
-
-  if not nameplate.UnitFrame then
-    return nil
-  end
-
-  local frame = nameplate.UnitFrame
-
-  if frame:IsForbidden() then
-    return nil
-  end
-
-  if not frame.unit then
-    return nil
-  end
-
-  if not smatch(frame.unit, "nameplate") then
-    return nil
-  end
-
-  return frame
+local function GetUnitFrame(nameplate)
+  return nameplate.UnitFrame
 end
 
 local function GetHealthBarFrame(nameplate)
-  local frame = GetSafeNameplateFrame(nameplate)
-  if frame then
-    if frame.HealthBarsContainer then
-      return frame.HealthBarsContainer.healthBar
-    elseif frame.healthBar then
-      return frame.healthBar
-    else
-      return frame
-    end
-  end
-  return nil
+  local UnitFrame = GetUnitFrame(nameplate)
+  return UnitFrame.HealthBarsContainer
 end
 
 local function instanceCheck()
@@ -175,10 +144,6 @@ local function GetUnitHealthText(unit, health, absorb)
 end
 
 local function addNameplateHealth(nameplate, _)
-  if not nameplate.namePlateUnitToken then
-    return
-  end
-
   local unit = nameplate.namePlateUnitToken
 
   local isPlayer = UnitIsPlayer(unit)
@@ -208,21 +173,7 @@ local function addNameplateHealth(nameplate, _)
     return
   end
 
-  local healthBar = GetHealthBarFrame(nameplate)
-  local anchorFrame = healthBar and healthBar or nameplate
-  local offsetX = 0
-  if healthBar then
-  else
-    if NS.db.global.position == "LEFT" then
-      offsetX = 12
-    elseif NS.db.global.position == "RIGHT" then
-      offsetX = -12
-    end
-  end
-  local offset = {
-    x = offsetX,
-    y = 0,
-  }
+  local anchorFrame = GetHealthBarFrame(nameplate)
 
   if not nameplate.nphHealthText then
     nameplate.nphHealthText = nameplate.rbgdAnchorFrame:CreateFontString(nil, "OVERLAY")
@@ -234,10 +185,11 @@ local function addNameplateHealth(nameplate, _)
       NS.db.global.color.a
     )
     nameplate.nphHealthText:ClearAllPoints()
-    nameplate.nphHealthText:SetPoint(NS.db.global.position, anchorFrame, NS.db.global.position, offset.x, offset.y)
+    nameplate.nphHealthText:SetPoint(NS.db.global.position, anchorFrame, NS.db.global.position, 0, 0)
     nameplate.nphHealthText:SetShadowOffset(1, -1)
     nameplate.nphHealthText:SetShadowColor(0, 0, 0, 0.2)
     nameplate.nphHealthText:SetJustifyH("CENTER")
+    nameplate.nphHealthText:SetJustifyV("MIDDLE")
     nameplate.nphHealthText:SetScale(1)
     nameplate.nphHealthAmount = UnitHealth(unit)
     nameplate.nphHealthAbsorb = nil
@@ -257,7 +209,7 @@ local function addNameplateHealth(nameplate, _)
       NS.db.global.color.a
     )
     nameplate.nphHealthText:ClearAllPoints()
-    nameplate.nphHealthText:SetPoint(NS.db.global.position, anchorFrame, NS.db.global.position, offset.x, offset.y)
+    nameplate.nphHealthText:SetPoint(NS.db.global.position, anchorFrame, NS.db.global.position, 0, 0)
   end
 
   local unitHealth = UnitHealth(unit)
@@ -280,6 +232,22 @@ local function addNameplateHealth(nameplate, _)
   nameplate.nphHealthText:Show()
 end
 
+function NameplateHealth:detachFromNameplate(nameplate)
+  if nameplate.nphHealthText ~= nil then
+    nameplate.nphHealthText:Hide()
+  end
+end
+
+function NameplateHealth:attachToNameplate(nameplate, guid)
+  if not nameplate.rbgdAnchorFrame then
+    local attachmentFrame = GetHealthBarFrame(nameplate)
+    nameplate.rbgdAnchorFrame = CreateFrame("Frame", nil, attachmentFrame)
+    nameplate.rbgdAnchorFrame:SetFrameStrata("HIGH")
+  end
+
+  addNameplateHealth(nameplate, guid)
+end
+
 local function refreshNameplates(override)
   if not override and NameplateHealthFrame.wasOnLoadingScreen then
     return
@@ -295,27 +263,7 @@ local function refreshNameplates(override)
   end
 end
 
-function NameplateHealth:detachFromNameplate(nameplate)
-  if nameplate.nphHealthText ~= nil then
-    nameplate.nphHealthText:Hide()
-  end
-end
-
-function NameplateHealth:attachToNameplate(nameplate, guid)
-  if not nameplate.rbgdAnchorFrame then
-    local healthBar = GetHealthBarFrame(nameplate)
-    local attachmentFrame = healthBar and healthBar or nameplate
-    nameplate.rbgdAnchorFrame = CreateFrame("Frame", nil, attachmentFrame)
-  end
-
-  addNameplateHealth(nameplate, guid)
-end
-
 function NameplateHealth:NAME_PLATE_UNIT_REMOVED(unitToken)
-  if not unitToken then
-    return
-  end
-
   local nameplate = GetNamePlateForUnit(unitToken, issecure())
 
   if nameplate then
@@ -324,10 +272,6 @@ function NameplateHealth:NAME_PLATE_UNIT_REMOVED(unitToken)
 end
 
 function NameplateHealth:NAME_PLATE_UNIT_ADDED(unitToken)
-  if not unitToken then
-    return
-  end
-
   local nameplate = GetNamePlateForUnit(unitToken, issecure())
   local guid = UnitGUID(unitToken)
 
@@ -337,10 +281,6 @@ function NameplateHealth:NAME_PLATE_UNIT_ADDED(unitToken)
 end
 
 function NameplateHealth:UNIT_ABSORB_AMOUNT_CHANGED(unitTarget)
-  if not unitTarget then
-    return
-  end
-
   local nameplate = GetNamePlateForUnit(unitTarget, issecure())
   local guid = UnitGUID(unitTarget)
 
@@ -350,10 +290,6 @@ function NameplateHealth:UNIT_ABSORB_AMOUNT_CHANGED(unitTarget)
 end
 
 function NameplateHealth:UNIT_HEALTH(unitTarget)
-  if not unitTarget then
-    return
-  end
-
   local nameplate = GetNamePlateForUnit(unitTarget, issecure())
   local guid = UnitGUID(unitTarget)
 
