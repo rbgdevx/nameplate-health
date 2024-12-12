@@ -200,17 +200,15 @@ local function addNameplateHealth(nameplate, _)
     nameplate.nphHealthText:SetText(healthText)
   end
 
-  if NameplateHealthFrame.dbChanged then
-    nameplate.nphHealthText:SetFont(LSM:Fetch("font", NS.db.global.fontFamily), NS.db.global.fontSize, "OUTLINE")
-    nameplate.nphHealthText:SetTextColor(
-      NS.db.global.color.r,
-      NS.db.global.color.g,
-      NS.db.global.color.b,
-      NS.db.global.color.a
-    )
-    nameplate.nphHealthText:ClearAllPoints()
-    nameplate.nphHealthText:SetPoint(NS.db.global.position, anchorFrame, NS.db.global.position, 0, 0)
-  end
+  nameplate.nphHealthText:SetFont(LSM:Fetch("font", NS.db.global.fontFamily), NS.db.global.fontSize, "OUTLINE")
+  nameplate.nphHealthText:SetTextColor(
+    NS.db.global.color.r,
+    NS.db.global.color.g,
+    NS.db.global.color.b,
+    NS.db.global.color.a
+  )
+  nameplate.nphHealthText:ClearAllPoints()
+  nameplate.nphHealthText:SetPoint(NS.db.global.position, anchorFrame, NS.db.global.position, 0, 0)
 
   local unitHealth = UnitHealth(unit)
   local unitAbsorb = nil

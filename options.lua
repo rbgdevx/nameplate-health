@@ -19,7 +19,6 @@ NS.AceConfig = {
           order = 1,
           set = function(_, val)
             NS.db.global.test = val
-
             NS.OnDbChanged()
           end,
           get = function(_)
@@ -34,7 +33,6 @@ NS.AceConfig = {
           order = 2,
           set = function(_, val)
             NS.db.global.showAbsorb = val
-
             NS.OnDbChanged()
           end,
           get = function(_)
@@ -48,7 +46,6 @@ NS.AceConfig = {
           order = 3,
           set = function(_, val)
             NS.db.global.showPercentage = val
-
             NS.OnDbChanged()
           end,
           get = function(_)
@@ -62,7 +59,6 @@ NS.AceConfig = {
           order = 4,
           set = function(_, val)
             NS.db.global.showPercentageOnly = val
-
             NS.OnDbChanged()
           end,
           get = function(_)
@@ -77,11 +73,9 @@ NS.AceConfig = {
           order = 5,
           set = function(_, val)
             NS.db.global.showAllies = val
-
             if val then
               NS.db.global.showCanAttackOnly = false
             end
-
             NS.OnDbChanged()
           end,
           get = function(_)
@@ -96,7 +90,6 @@ NS.AceConfig = {
           order = 6,
           set = function(_, val)
             NS.db.global.showEnemies = val
-
             NS.OnDbChanged()
           end,
           get = function(_)
@@ -111,11 +104,9 @@ NS.AceConfig = {
           order = 7,
           set = function(_, val)
             NS.db.global.showNPCs = val
-
             if val then
               NS.db.global.showPlayersOnly = false
             end
-
             NS.OnDbChanged()
           end,
           get = function(_)
@@ -137,11 +128,9 @@ NS.AceConfig = {
               order = 1,
               set = function(_, val)
                 NS.db.global.showPlayersOnly = val
-
                 if val then
                   NS.db.global.showNPCs = false
                 end
-
                 NS.OnDbChanged()
               end,
               get = function(_)
@@ -156,11 +145,9 @@ NS.AceConfig = {
               order = 1,
               set = function(_, val)
                 NS.db.global.showCanAttackOnly = val
-
                 if val then
                   NS.db.global.showAllies = false
                 end
-
                 NS.OnDbChanged()
               end,
               get = function(_)
@@ -186,7 +173,6 @@ NS.AceConfig = {
           },
           set = function(_, val)
             NS.db.global.position = val
-
             NS.OnDbChanged()
           end,
           get = function(_)
@@ -203,7 +189,6 @@ NS.AceConfig = {
           step = 1,
           set = function(_, val)
             NS.db.global.fontSize = val
-
             NS.OnDbChanged()
           end,
           get = function(_)
@@ -219,7 +204,6 @@ NS.AceConfig = {
           values = AceGUIWidgetLSMlists.font,
           set = function(_, val)
             NS.db.global.fontFamily = val
-
             NS.OnDbChanged()
           end,
           get = function(_)
@@ -238,7 +222,6 @@ NS.AceConfig = {
             NS.db.global.color.g = val2
             NS.db.global.color.b = val3
             NS.db.global.color.a = val4
-
             NS.OnDbChanged()
           end,
           get = function(_)
@@ -254,7 +237,6 @@ NS.AceConfig = {
           func = function()
             NameplateHealthDB = CopyTable(NS.DefaultDatabase)
             NS.db = CopyTable(NS.DefaultDatabase)
-
             NS.OnDbChanged()
           end,
         },

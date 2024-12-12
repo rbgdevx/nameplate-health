@@ -1,5 +1,9 @@
 # Nameplate Health
 
+## [v1.0.4](https://github.com/rbgdevx/nameplate-health/releases/tag/v1.0.4) (2024-12-12)
+
+- ensuring updates get sent always to nameplate settings
+
 ## [v1.0.3](https://github.com/rbgdevx/nameplate-health/releases/tag/v1.0.3) (2024-12-10)
 
 - refactoring nameplate anchoring to be consistent and up to date with blizzards apis

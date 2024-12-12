@@ -1,6 +1,6 @@
 ## Interface: 110005
 ## Title: NameplateHealth
-## Version: 1.0.3
+## Version: 1.0.4
 ## Author: RBGDEV
 ## Notes: Shows health on nameplates
 ## OptionalDeps: Ace3, LibStub, LibSharedMedia-3.0, AceGUI-3.0-SharedMediaWidgets
