@@ -35,6 +35,8 @@ local GetNamePlateForUnit = C_NamePlate.GetNamePlateForUnit
 local GetNamePlates = C_NamePlate.GetNamePlates
 local After = C_Timer.After
 
+local AceConfig = LibStub("AceConfig-3.0")
+local AceConfigDialog = LibStub("AceConfigDialog-3.0")
 local SharedMedia = LibStub("LibSharedMedia-3.0")
 
 local NameplateHealth = NS.NameplateHealth
@@ -401,12 +403,12 @@ function NS.OnDbChanged()
 end
 
 function NS.Options_SlashCommands(_)
-  LibStub("AceConfigDialog-3.0"):Open(AddonName)
+  AceConfigDialog:Open(AddonName)
 end
 
 function NS.Options_Setup()
-  LibStub("AceConfig-3.0"):RegisterOptionsTable(AddonName, NS.AceConfig)
-  LibStub("AceConfigDialog-3.0"):AddToBlizOptions(AddonName, AddonName)
+  AceConfig:RegisterOptionsTable(AddonName, NS.AceConfig)
+  AceConfigDialog:AddToBlizOptions(AddonName, AddonName)
 
   SLASH_NPH1 = AddonName
   SLASH_NPH2 = "/nph"
