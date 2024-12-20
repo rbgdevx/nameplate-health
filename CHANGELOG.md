@@ -1,5 +1,13 @@
 # Nameplate Health
 
+## [v1.0.5](https://github.com/rbgdevx/nameplate-health/releases/tag/v1.0.5) (2024-12-20)
+
+- Drag and Click control updates to ensure click through when hidden or locked
+- Fixing font dropdown list
+- Updating font size range
+- Minor Cleanup
+- Update toc
+
 ## [v1.0.4](https://github.com/rbgdevx/nameplate-health/releases/tag/v1.0.4) (2024-12-12)
 
 - ensuring updates get sent always to nameplate settings
