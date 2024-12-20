@@ -35,7 +35,7 @@ local GetNamePlateForUnit = C_NamePlate.GetNamePlateForUnit
 local GetNamePlates = C_NamePlate.GetNamePlates
 local After = C_Timer.After
 
-local LSM = LibStub("LibSharedMedia-3.0")
+local SharedMedia = LibStub("LibSharedMedia-3.0")
 
 local NameplateHealth = NS.NameplateHealth
 local NameplateHealthFrame = NS.NameplateHealth.frame
@@ -177,7 +177,11 @@ local function addNameplateHealth(nameplate, _)
 
   if not nameplate.nphHealthText then
     nameplate.nphHealthText = nameplate.rbgdAnchorFrame:CreateFontString(nil, "OVERLAY")
-    nameplate.nphHealthText:SetFont(LSM:Fetch("font", NS.db.global.fontFamily), NS.db.global.fontSize, "OUTLINE")
+    nameplate.nphHealthText:SetFont(
+      SharedMedia:Fetch("font", NS.db.global.fontFamily),
+      NS.db.global.fontSize,
+      "OUTLINE"
+    )
     nameplate.nphHealthText:SetTextColor(
       NS.db.global.color.r,
       NS.db.global.color.g,
@@ -200,7 +204,7 @@ local function addNameplateHealth(nameplate, _)
     nameplate.nphHealthText:SetText(healthText)
   end
 
-  nameplate.nphHealthText:SetFont(LSM:Fetch("font", NS.db.global.fontFamily), NS.db.global.fontSize, "OUTLINE")
+  nameplate.nphHealthText:SetFont(SharedMedia:Fetch("font", NS.db.global.fontFamily), NS.db.global.fontSize, "OUTLINE")
   nameplate.nphHealthText:SetTextColor(
     NS.db.global.color.r,
     NS.db.global.color.g,
@@ -241,6 +245,7 @@ function NameplateHealth:attachToNameplate(nameplate, guid)
     local attachmentFrame = GetHealthBarFrame(nameplate)
     nameplate.rbgdAnchorFrame = CreateFrame("Frame", nil, attachmentFrame)
     nameplate.rbgdAnchorFrame:SetFrameStrata("HIGH")
+    nameplate.rbgdAnchorFrame:SetFrameLevel(attachmentFrame:GetFrameLevel() + 1)
   end
 
   addNameplateHealth(nameplate, guid)
