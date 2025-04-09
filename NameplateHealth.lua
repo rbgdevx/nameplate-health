@@ -84,13 +84,18 @@ local simpleFormatters = {
   end,
 }
 
-local function GetUnitFrame(nameplate)
-  return nameplate.UnitFrame
-end
-
-local function GetHealthBarFrame(nameplate)
-  local UnitFrame = GetUnitFrame(nameplate)
-  return UnitFrame.HealthBarsContainer
+local function GetAnchorFrame(nameplate)
+  if Plater and nameplate.unitFrame.PlaterOnScreen then
+    return nameplate.unitFrame.healthBar
+  elseif nameplate.kui and nameplate.kui.bg and nameplate.kui:IsShown() then
+    return KuiNameplatesPlayerAnchor
+  elseif ElvUIPlayerNamePlateAnchor then
+    return ElvUIPlayerNamePlateAnchor
+  elseif TidyPlates and nameplate.extended then
+    return nameplate.extended.visual.healthbar
+  else
+    return nameplate.UnitFrame.HealthBarsContainer
+  end
 end
 
 local function instanceCheck()
@@ -175,7 +180,7 @@ local function addNameplateHealth(nameplate, _)
     return
   end
 
-  local anchorFrame = GetHealthBarFrame(nameplate)
+  local anchorFrame = GetAnchorFrame(nameplate)
 
   if not nameplate.nphHealthText then
     nameplate.nphHealthText = nameplate.rbgdAnchorFrame:CreateFontString(nil, "OVERLAY")
@@ -244,7 +249,7 @@ end
 
 function NameplateHealth:attachToNameplate(nameplate, guid)
   if not nameplate.rbgdAnchorFrame then
-    local attachmentFrame = GetHealthBarFrame(nameplate)
+    local attachmentFrame = GetAnchorFrame(nameplate)
     nameplate.rbgdAnchorFrame = CreateFrame("Frame", nil, attachmentFrame)
     nameplate.rbgdAnchorFrame:SetFrameStrata("HIGH")
     nameplate.rbgdAnchorFrame:SetFrameLevel(attachmentFrame:GetFrameLevel() + 1)

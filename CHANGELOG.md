@@ -1,5 +1,10 @@
 # Nameplate Health
 
+## [v1.0.6](https://github.com/rbgdevx/nameplate-health/releases/tag/v1.0.6) (2025-04-09)
+
+- Adding support for Plater, KUI, ElvUI, and Tidyplates
+- Update toc
+
 ## [v1.0.5](https://github.com/rbgdevx/nameplate-health/releases/tag/v1.0.5) (2024-12-20)
 
 - Drag and Click control updates to ensure click through when hidden or locked

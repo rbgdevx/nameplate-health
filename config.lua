@@ -81,6 +81,7 @@ NS.NPC_HIDE_LIST = {
   "217429",
   "231086",
   "231085",
+  "158259",
 }
 
 NS.DefaultDatabase = {
