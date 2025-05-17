@@ -1,5 +1,10 @@
 # Nameplate Health
 
+## [v1.0.7](https://github.com/rbgdevx/nameplate-health/releases/tag/v1.0.7) (2025-05-17)
+
+- Assigning addon to my own category for organization
+- Update toc
+
 ## [v1.0.6](https://github.com/rbgdevx/nameplate-health/releases/tag/v1.0.6) (2025-04-09)
 
 - Adding support for Plater, KUI, ElvUI, and Tidyplates
