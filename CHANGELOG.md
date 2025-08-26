@@ -1,5 +1,10 @@
 # Nameplate Health
 
+## [v1.0.8](https://github.com/rbgdevx/nameplate-health/releases/tag/v1.0.8) (2025-08-26)
+
+- Fixing nameplate anchors for third party nameplate addons
+- Update toc
+
 ## [v1.0.7](https://github.com/rbgdevx/nameplate-health/releases/tag/v1.0.7) (2025-05-17)
 
 - Assigning addon to my own category for organization

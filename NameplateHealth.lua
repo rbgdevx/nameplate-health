@@ -85,16 +85,24 @@ local simpleFormatters = {
 }
 
 local function GetAnchorFrame(nameplate)
-  if Plater and nameplate.unitFrame.PlaterOnScreen then
-    return nameplate.unitFrame.healthBar
-  elseif nameplate.kui and nameplate.kui.bg and nameplate.kui:IsShown() then
-    return KuiNameplatesPlayerAnchor
-  elseif ElvUIPlayerNamePlateAnchor then
-    return ElvUIPlayerNamePlateAnchor
-  elseif TidyPlates and nameplate.extended then
-    return nameplate.extended.visual.healthbar
+  if nameplate.UnitFrame then
+    if nameplate.UnitFrame.HealthBarsContainer then
+      return nameplate.UnitFrame.HealthBarsContainer
+    elseif nameplate.UnitFrame.healthBar then
+      return nameplate.UnitFrame.healthBar
+    else
+      return nameplate.UnitFrame
+    end
+  elseif nameplate.unitFrame then
+    if nameplate.unitFrame.HealthBarsContainer then
+      return nameplate.unitFrame.HealthBarsContainer
+    elseif nameplate.unitFrame.Health then
+      return nameplate.unitFrame.Health
+    else
+      return nameplate.unitFrame
+    end
   else
-    return nameplate.UnitFrame.HealthBarsContainer
+    return nameplate
   end
 end
 
