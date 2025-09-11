@@ -281,7 +281,7 @@ end
 
 function NameplateHealth:attachToNameplate(nameplate, guid)
   if not nameplate.rbgdAnchorFrame then
-    local attachmentFrame = GetAnchorFrame(nameplate)
+    local attachmentFrame = nameplate
     nameplate.rbgdAnchorFrame = CreateFrame("Frame", nil, attachmentFrame)
     nameplate.rbgdAnchorFrame:SetFrameStrata("HIGH")
     nameplate.rbgdAnchorFrame:SetFrameLevel(attachmentFrame:GetFrameLevel() + 1)

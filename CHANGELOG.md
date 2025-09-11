@@ -1,5 +1,9 @@
 # Nameplate Health
 
+## [v1.0.10](https://github.com/rbgdevx/nameplate-health/releases/tag/v1.0.10) (2025-09-10)
+
+- Changing core anchor
+
 ## [v1.0.9](https://github.com/rbgdevx/nameplate-health/releases/tag/v1.0.9) (2025-09-10)
 
 - Fixing nameplate anchors for third party nameplate addons
