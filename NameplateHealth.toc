@@ -1,6 +1,6 @@
-## Interface: 110200
+## Interface: 110207
 ## Title: Nameplate Health
-## Version: 1.0.10
+## Version: 1.1.0
 ## Author: RBGDEV
 ## Notes: Shows health on nameplates
 ## IconTexture: Interface/AddOns/NameplateHealth/logo.tga
