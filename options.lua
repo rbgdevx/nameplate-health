@@ -181,7 +181,7 @@ NS.AceConfig = {
         return NS.db.global.position
       end,
     },
-    spacer2 = { type = "description", order = 11, name = " " },
+    spacer2 = { name = " ", type = "description", order = 11, width = "full" },
     fontSize = {
       type = "range",
       name = "Font Size",
